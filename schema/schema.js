@@ -135,6 +135,9 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+        Project.find({ clientId: args.id }).then((projects) => {
+          projects.remove();
+        });
         return Project.findByIdAndDelete(args.id);
       },
     },
